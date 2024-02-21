@@ -8,6 +8,7 @@ class MapReduce:
     def emitIntermediate(self, key, value):
        self.intermediate.setdefault(key, [])
        self.intermediate[key].append(value)
+       #print(self.intermediate)
 
     def emit(self, value):
         self.result.append(value) 
@@ -20,8 +21,8 @@ class MapReduce:
             reducer(key, self.intermediate[key])
 
         self.result.sort()
-        #for item in self.result:
-            #print(item)
+        for item in self.result:
+            print(item)
 
 mapReducer = MapReduce()
 
@@ -32,15 +33,19 @@ def mapper(record):
       if values[0] == "Department":
         k = values[1]
         v = values[2]
-      if values[0] == "Employee":
+        mapReducer.emitIntermediate(k, (values[0], v))
+      elif values[0] == "Employee":
         k = values[2]
         v = values[1]
-      #mapReducer.emitIntermediate(k, v)
-      print(k, v)
+        mapReducer.emitIntermediate(k, (values[0], v))      
 
 def reducer(key, list_of_values):
    #Start writing the Reduce code here
-   mapReducer.emit((key, list_of_values))
+   d_list = [a[1] for a in list_of_values if a[0]=="Department"]
+   e_list = [a[1] for a in list_of_values if a[0]=="Employee"]
+   for i in d_list:
+      for j in e_list:
+         mapReducer.emit((key, j, i))   
 
 if __name__ == '__main__':
   inputData = []
@@ -48,4 +53,4 @@ if __name__ == '__main__':
   for i in range(0, int(n_max)):
    inputData.append(input())
   #print(inputData)
-  mapReducer.execute(inputData, mapper, reducer)
+  mapReducer.execute([inputData], mapper, reducer)
