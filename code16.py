@@ -14,11 +14,9 @@ class MapReduce:
     def emitIntermediate2(self, key, value):
         self.intermediate2.setdefault(key, [])
         self.intermediate2[key].append(value)
-        #print(self.intermediate2)
 
     def emit(self, value):
         self.result[value[0]][value[1]] = value[2]
-
 
     def execute(self, matrix1, matrix2, mapper, reducer):
         n = len(matrix1)
@@ -51,7 +49,6 @@ def mapper(matrix1, matrix2):
 
 def reducer(key, list_of_values):
     # Start writing the Reduce code here
-    #print(key, list_of_values)
     m1 = []
     m2 = []
     for i in list_of_values:
