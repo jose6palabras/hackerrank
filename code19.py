@@ -1,3 +1,5 @@
+# problem 1 practice test Turing
+#baseball game 
 def calPoints(ops):
     val = []
     for i in range(len(ops)):
