@@ -20,3 +20,15 @@ od['d'] = 4
 
 for key, value in od.items():
 	print(key, value)
+
+print("\nThis is a dictionary of Jurassic Park/World movies:\n")
+jurassic_movies = OrderedDict()
+jurassic_movies['Jurassic Park'] = 1993
+jurassic_movies['The Lost World: Jurassic Park'] = 1997
+jurassic_movies['Jurassic Park III'] = 2001
+jurassic_movies['Jurassic World'] = 2015
+jurassic_movies['Jurassic World: Fallen Kingdom'] = 2018
+jurassic_movies['Jurassic World: Dominion'] = 2022
+
+for key, value in jurassic_movies.items():
+    print(key, value)
